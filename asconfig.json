@@ -1,0 +1,30 @@
+{
+	"config": "air",
+	"type": "lib",
+	"compilerOptions": {
+		"source-path": [
+			"src"
+		],
+		"library-path": [
+			"libs"
+		],
+		"external-library-path": [
+			"libs"
+		],
+		"output": "bin/PetFightDLL.swc",
+		"default-background-color": "#869ca7",
+		"default-frame-rate": 24,
+		"default-size": {
+			"width": 500,
+			"height": 500
+		},
+        "swf-version": 14,
+        "strict": false,
+        "include-sources": ["src"]
+	},
+	"application": "src/PetFightDLL-app.xml",
+	"mainClass": "PetFightDLL",
+	"files": [
+        "src/PetFightDLL.as"
+    ]
+}
