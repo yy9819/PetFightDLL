@@ -22,6 +22,7 @@ package com.robot.petFightModule.mode
    import flash.events.Event;
    import flash.events.EventDispatcher;
    import flash.filters.GlowFilter;
+   import com.robot.core.ui.alert.Alarm;
    
    public class BaseFighterMode extends EventDispatcher
    {
@@ -53,17 +54,21 @@ package com.robot.petFightModule.mode
       
       public var petID:uint;
       
-      public function BaseFighterMode(param1:FightPetInfo, param2:Sprite)
+      public var skinId:uint;
+
+      public function BaseFighterMode(fightPetInfo:FightPetInfo, param2:Sprite)
       {
          super();
-         _userID = param1.userID;
-         petID = param1.petID;
+         _userID = fightPetInfo.userID;
+         petID = fightPetInfo.petID;
+         skinId = int(fightPetInfo.petName);
+         //Alarm.show("skinId:" + skinId.toString());
          petName = PetXMLInfo.getName(petID);
-         catchTime = param1.catchTime;
-         hp = param1.hp;
-         maxHP = param1.maxHP;
-         level = param1.level;
-         catchable = param1.catchable;
+         catchTime = fightPetInfo.catchTime;
+         hp = fightPetInfo.hp;
+         maxHP = fightPetInfo.maxHP;
+         level = fightPetInfo.level;
+         catchable = fightPetInfo.catchable;
          addEventListener(PetFightEvent.NO_BLOOD,onNoBloodHandler);
          addEventListener(PetFightEvent.REMAIN_HP,onItemRemainHp);
       }
@@ -77,7 +82,7 @@ package com.robot.petFightModule.mode
          _propView.update(this);
          _petWin = new BaseFighterPetWin();
          _petWin.addEventListener(PetFightEvent.ON_OPENNING,onOpenning);
-         _petWin.update(petID);
+         _petWin.update(skinId != 0 ? skinId : petID);
          if(MainManager.actorInfo.maxPuniLv == 2)
          {
             _petWin.petMC.filters = null;
@@ -118,15 +123,17 @@ package com.robot.petFightModule.mode
       {
       }
       
-      public function changePet(param1:ChangePetInfo) : void
+      public function changePet(changePetInfo:ChangePetInfo) : void
       {
-         petID = param1.petID;
+         petID = changePetInfo.petID;
+         skinId = int(changePetInfo.petName);
          petName = PetXMLInfo.getName(petID);
-         level = param1.level;
-         hp = param1.hp;
-         maxHP = param1.maxHp;
+         //Alarm.show("skinId:" + skinId.toString());
+         level = changePetInfo.level;
+         hp = changePetInfo.hp;
+         maxHP = changePetInfo.maxHp;
          _propView.update(this,true);
-         _petWin.update(petID);
+         _petWin.update(skinId != 0 ? skinId : petID);
          if(this == FighterModeFactory.playerMode)
          {
             TimerManager.start();

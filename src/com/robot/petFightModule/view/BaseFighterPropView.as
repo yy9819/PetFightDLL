@@ -75,24 +75,24 @@ package com.robot.petFightModule.view
          }
       }
       
-      public function update(param1:BaseFighterMode, param2:Boolean = false) : void
+      public function update(baseFighterMode:BaseFighterMode, param2:Boolean = false) : void
       {
          if(param2)
          {
             removeAllEffect();
          }
          DisplayUtil.removeAllChild(iconMC);
-         if(param1.level <= 100)
+         if(baseFighterMode.level <= 100)
          {
-            lv_txt.text = param1.level.toString();
+            lv_txt.text = baseFighterMode.level.toString();
          }
          else
          {
             lv_txt.text = "??";
          }
-         showName(param1);
-         resetBar(param1);
-         ResourceManager.getResource(ClientConfig.getPetSwfPath(param1.petID),onShowComplete,"pet");
+         showName(baseFighterMode);
+         resetBar(baseFighterMode);
+         ResourceManager.getResource(ClientConfig.getPetSwfPath(baseFighterMode.skinId != 0 ? baseFighterMode.skinId : baseFighterMode.petID),onShowComplete,"pet");
       }
       
       private function onShowComplete(param1:DisplayObject) : void

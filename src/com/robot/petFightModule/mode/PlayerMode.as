@@ -29,9 +29,9 @@ package com.robot.petFightModule.mode
       
       private var toolBtnObserver:ToolBtnPanelObserver;
       
-      public function PlayerMode(param1:FightPetInfo, param2:Sprite)
+      public function PlayerMode(fightPetInfo:FightPetInfo, param2:Sprite)
       {
-         super(param1,param2);
+         super(fightPetInfo,param2);
          controlContainer = param2["controlMC"];
          subject = new FightToolSubject();
          toolBtnObserver = new ToolBtnPanelObserver(subject,controlContainer);
@@ -48,7 +48,7 @@ package com.robot.petFightModule.mode
          _propView.update(this);
          _petWin = new PlayerPetWin();
          _petWin.addEventListener(PetFightEvent.ON_OPENNING,onOpenning);
-         _petWin.update(petID);
+         _petWin.update(skinId != 0 ? skinId : petID);
       }
       
       public function get skillBtnViews() : Array

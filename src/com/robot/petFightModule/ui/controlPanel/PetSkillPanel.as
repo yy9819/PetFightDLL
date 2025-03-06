@@ -114,15 +114,15 @@ package com.robot.petFightModule.ui.controlPanel
          var _loc5_:PetSkillInfo = null;
          var _loc6_:SkillBtnView = null;
          var _loc7_:MovieClip = null;
-         var _loc1_:BaseFighterMode = PetFightEntry.fighterCon.getFighterMode(MainManager.actorID);
+         var baseFighterMode:BaseFighterMode = PetFightEntry.fighterCon.getFighterMode(MainManager.actorID);
          DisplayUtil.removeAllChild(petPrev);
-         var _loc2_:uint = _loc1_.catchTime;
-         ResourceManager.getResource(ClientConfig.getPetSwfPath(_loc1_.petID),onShowComplete,"pet");
-         petNameTxt.text = _loc1_.petName;
+         var _loc2_:uint = baseFighterMode.catchTime;
+         ResourceManager.getResource(ClientConfig.getPetSwfPath(baseFighterMode.skinId != 0 ?baseFighterMode.skinId : baseFighterMode.petID),onShowComplete,"pet");
+         petNameTxt.text = baseFighterMode.petName;
          clearOldBtns();
          if(PetFightModel.mode == PetFightModel.PET_MELEE)
          {
-            _loc3_ = PetWarController.getPetInfo(_loc1_.catchTime).skillArray;
+            _loc3_ = PetWarController.getPetInfo(baseFighterMode.catchTime).skillArray;
          }
          else
          {
