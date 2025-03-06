@@ -2,7 +2,7 @@ package otherAsset_fla
 {
    import flash.display.MovieClip;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol263")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol264")]
    public dynamic class Timeline_23 extends MovieClip
    {
       public function Timeline_23()

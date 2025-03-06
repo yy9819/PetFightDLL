@@ -2,7 +2,7 @@ package mainPanel_fla
 {
    import flash.display.MovieClip;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol209")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol210")]
    public dynamic class item_btn_17 extends MovieClip
    {
       public function item_btn_17()

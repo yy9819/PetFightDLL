@@ -3,7 +3,7 @@ package
    import flash.display.MovieClip;
    import flash.text.TextField;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol241")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol242")]
    public dynamic class ui_mainPanel extends MovieClip
    {
       public var speedMultiplierHideMC:MovieClip;

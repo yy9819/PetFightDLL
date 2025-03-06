@@ -2,7 +2,7 @@ package
 {
    import flash.display.MovieClip;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol268")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol269")]
    public dynamic class Item_Blood_Bottom extends MovieClip
    {
       public function Item_Blood_Bottom()

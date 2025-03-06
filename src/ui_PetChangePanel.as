@@ -4,7 +4,7 @@ package
    import flash.display.SimpleButton;
    import flash.text.TextField;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol708")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol709")]
    public dynamic class ui_PetChangePanel extends MovieClip
    {
       public var name_txt:TextField;

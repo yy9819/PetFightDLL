@@ -3,7 +3,7 @@ package
    import flash.display.MovieClip;
    import flash.text.TextField;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol778")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol779")]
    public dynamic class FightLoadingMC extends MovieClip
    {
       public var myPercentTxt:TextField;
