@@ -4,7 +4,10 @@ package com.robot.petFightModule.view
    import flash.display.MovieClip;
    import flash.events.Event;
    import org.taomee.utils.DisplayUtil;
-   
+   import flash.filters.ColorMatrixFilter;
+   import com.robot.core.config.xml.ShinyXMLInfo;
+   import com.robot.core.ui.alert.Alarm;
+
    public class PlayerPetWin extends BaseFighterPetWin
    {
       private var isOpened:Boolean = false;
@@ -14,13 +17,21 @@ package com.robot.petFightModule.view
          super();
       }
       
-      override protected function setPetMC(param1:MovieClip) : void
+      override protected function setPetMC(param1:MovieClip,shiny:uint) : void
       {
          DisplayUtil.removeAllChild(petContainer);
          param1.x = BaseFighterPetWin.WIN_WIDTH / 2;
          param1.y = 145;
          param1.gotoAndStop(1);
-         param1.filters = [filte];
+         var matrix:ColorMatrixFilter = null;
+         if(shiny == 1)
+         {
+            var argArray:Array = ShinyXMLInfo.getShinyArray(petID);
+            matrix = new ColorMatrixFilter(argArray)
+            param1.filters = [filte , glow , matrix]
+         }else{
+            param1.filters = [filte];
+         }
          if(isOpened)
          {
             petContainer.addChild(param1);

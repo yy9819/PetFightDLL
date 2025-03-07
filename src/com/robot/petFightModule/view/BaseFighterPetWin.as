@@ -22,7 +22,9 @@ package com.robot.petFightModule.view
    import org.taomee.events.DynamicEvent;
    import org.taomee.manager.EventManager;
    import org.taomee.utils.DisplayUtil;
-   
+   import flash.filters.ColorMatrixFilter;
+   import com.robot.core.config.xml.ShinyXMLInfo;
+
    public class BaseFighterPetWin extends Sprite
    {
       public static const WIN_WIDTH:uint = 180;
@@ -42,7 +44,7 @@ package com.robot.petFightModule.view
       protected var _petMC:MovieClip;
       
       protected var filte:GlowFilter = new GlowFilter(3355443,0.9,3,3,3.1);
-      
+      protected var glow:GlowFilter = new GlowFilter(0xFFFFFF, 1, 10, 10, 10, 1, false, false);
       public function BaseFighterPetWin()
       {
          super();
@@ -53,14 +55,22 @@ package com.robot.petFightModule.view
          initContainerPos();
       }
       
-      protected function setPetMC(param1:MovieClip) : void
+      protected function setPetMC(param1:MovieClip,shiny:uint) : void
       {
          DisplayUtil.removeAllChild(petContainer);
          param1.scaleX = -1;
          param1.x = WIN_WIDTH / 2;
          param1.y = 145;
          param1.gotoAndStop(1);
-         param1.filters = [filte];
+         var matrix:ColorMatrixFilter = null;
+         if(shiny == 1)
+         {
+            var argArray:Array = ShinyXMLInfo.getShinyArray(petID);
+            matrix = new ColorMatrixFilter(argArray)
+            param1.filters = [filte , glow , matrix]
+         }else{
+            param1.filters = [filte];
+         }
          this._petMC = param1;
          if(PetFightModel.defaultNpcID != FighterModeFactory.enemyMode.petID && PetFightModel.status == PetFightModel.FIGHT_WITH_NPC && PetFightModel.defaultNpcID != 0)
          {
@@ -72,7 +82,7 @@ package com.robot.petFightModule.view
             dispatchEvent(new PetFightEvent(PetFightEvent.ON_OPENNING));
          }
       }
-      
+
       protected function initContainerPos() : void
       {
          petContainer.x = MainManager.getStageWidth() - WIN_WIDTH - 90;
@@ -177,11 +187,11 @@ package com.robot.petFightModule.view
          });
       }
       
-      public function update(param1:uint) : void
+      public function update(param1:uint,shiny:uint) : void
       {
          this.petID = param1;
          var _loc2_:MovieClip = PetAssetsManager.getInstance().getAssetsByID(param1);
-         setPetMC(_loc2_);
+         setPetMC(_loc2_,shiny);
       }
       
       public function get petMC() : MovieClip

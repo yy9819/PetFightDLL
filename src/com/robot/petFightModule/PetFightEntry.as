@@ -35,6 +35,7 @@ package com.robot.petFightModule
    import flash.display.MovieClip;
    import flash.events.MouseEvent;
    import flash.display.SimpleButton;
+   import org.taomee.ds.HashMap;
    
    public class PetFightEntry
    {
@@ -55,6 +56,8 @@ package com.robot.petFightModule
       private static var soundChannel:SoundChannel;
       
       public static var isCanAuto:Boolean = false;
+
+      public static var _petInfoMap:HashMap = new HashMap();
 
       public var _speedMultiplierShowMC:MovieClip;
 
@@ -341,8 +344,9 @@ package com.robot.petFightModule
          }
       }
       
-      public static function setup(param1:Array, param2:Array, param3:Array) : void
+      public static function setup(param1:Array, param2:Array, param3:Array,petInfoMap:HashMap) : void
       {
+         _petInfoMap = petInfoMap;
          var _loc4_:int = 0;
          var _loc5_:int = 0;
          var _loc6_:String = null;

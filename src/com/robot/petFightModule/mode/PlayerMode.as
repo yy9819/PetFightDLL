@@ -16,7 +16,7 @@ package com.robot.petFightModule.mode
    import flash.events.Event;
    import org.taomee.manager.EventManager;
    import org.taomee.utils.DisplayUtil;
-   
+
    public class PlayerMode extends BaseFighterMode
    {
       private var isPetNoBlood:Boolean = false;
@@ -48,7 +48,7 @@ package com.robot.petFightModule.mode
          _propView.update(this);
          _petWin = new PlayerPetWin();
          _petWin.addEventListener(PetFightEvent.ON_OPENNING,onOpenning);
-         _petWin.update(skinId != 0 ? skinId : petID);
+         _petWin.update(((shiny != 1 && skinId != 0) ? skinId : petID),shiny);
       }
       
       public function get skillBtnViews() : Array

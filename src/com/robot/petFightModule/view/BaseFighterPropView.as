@@ -14,7 +14,10 @@ package com.robot.petFightModule.view
    import org.taomee.manager.ResourceManager;
    import org.taomee.manager.ToolTipManager;
    import org.taomee.utils.DisplayUtil;
-   
+   import flash.filters.ColorMatrixFilter;
+   import com.robot.core.config.xml.ShinyXMLInfo;
+   import flash.filters.GlowFilter;
+
    public class BaseFighterPropView
    {
       protected var effectIconClsNames:Array = [];
@@ -32,7 +35,11 @@ package com.robot.petFightModule.view
       protected var lv_txt:TextField;
       
       protected var name_txt:TextField;
-      
+
+      private var _baseFighterMode:BaseFighterMode;
+      protected var filte:GlowFilter = new GlowFilter(3355443,0.9,3,3,3.1);
+      protected var glow:GlowFilter = new GlowFilter(0xFFFFFF, 1, 10, 10, 10, 1, false, false);
+
       public function BaseFighterPropView(param1:Sprite)
       {
          super();
@@ -92,7 +99,8 @@ package com.robot.petFightModule.view
          }
          showName(baseFighterMode);
          resetBar(baseFighterMode);
-         ResourceManager.getResource(ClientConfig.getPetSwfPath(baseFighterMode.skinId != 0 ? baseFighterMode.skinId : baseFighterMode.petID),onShowComplete,"pet");
+         _baseFighterMode = baseFighterMode;
+         ResourceManager.getResource(ClientConfig.getPetSwfPath((baseFighterMode.skinId != 0 && baseFighterMode.shiny != 1) ? baseFighterMode.skinId : baseFighterMode.petID),onShowComplete,"pet");
       }
       
       private function onShowComplete(param1:DisplayObject) : void
@@ -114,6 +122,12 @@ package com.robot.petFightModule.view
             });
             _showMc.scaleX = 1.5;
             _showMc.scaleY = 1.5;
+            if(_baseFighterMode.shiny == 1){
+               var matrix:ColorMatrixFilter = null;
+               var argArray:Array = ShinyXMLInfo.getShinyArray(_baseFighterMode.petID);
+               matrix = new ColorMatrixFilter(argArray)
+               _showMc.filters = [ matrix]
+            }
             DisplayUtil.stopAllMovieClip(_showMc);
             iconMC.addChild(_showMc);
          }

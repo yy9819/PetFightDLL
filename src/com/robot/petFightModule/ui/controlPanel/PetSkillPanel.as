@@ -18,7 +18,10 @@ package com.robot.petFightModule.ui.controlPanel
    import org.taomee.effect.ColorFilter;
    import org.taomee.manager.ResourceManager;
    import org.taomee.utils.DisplayUtil;
-   
+   import flash.filters.ColorMatrixFilter;
+   import com.robot.core.config.xml.ShinyXMLInfo;
+   import flash.filters.GlowFilter;
+
    public class PetSkillPanel extends BaseControlPanel implements IControlPanel, IAutoActionPanel
    {
       private var btnContainer:Sprite;
@@ -28,7 +31,10 @@ package com.robot.petFightModule.ui.controlPanel
       public var skillBtnArray:Array = [];
       
       private var petPrev:Sprite;
-      
+      private var _baseFighterMode:BaseFighterMode;
+      protected var filte:GlowFilter = new GlowFilter(3355443,0.9,3,3,3.1);
+      protected var glow:GlowFilter = new GlowFilter(0xFFFFFF, 1, 10, 10, 10, 1, false, false);
+
       public function PetSkillPanel()
       {
          super();
@@ -78,6 +84,12 @@ package com.robot.petFightModule.ui.controlPanel
             });
             _showMc.scaleX = 1.5;
             _showMc.scaleY = 1.5;
+            if(_baseFighterMode.shiny == 1){
+               var matrix:ColorMatrixFilter = null;
+               var argArray:Array = ShinyXMLInfo.getShinyArray(_baseFighterMode.petID);
+               matrix = new ColorMatrixFilter(argArray)
+               _showMc.filters = [ matrix]
+            }
             petPrev.addChild(_showMc);
          }
       }
@@ -117,7 +129,8 @@ package com.robot.petFightModule.ui.controlPanel
          var baseFighterMode:BaseFighterMode = PetFightEntry.fighterCon.getFighterMode(MainManager.actorID);
          DisplayUtil.removeAllChild(petPrev);
          var _loc2_:uint = baseFighterMode.catchTime;
-         ResourceManager.getResource(ClientConfig.getPetSwfPath(baseFighterMode.skinId != 0 ?baseFighterMode.skinId : baseFighterMode.petID),onShowComplete,"pet");
+         _baseFighterMode = baseFighterMode;
+         ResourceManager.getResource(ClientConfig.getPetSwfPath((baseFighterMode.skinId != 0 && baseFighterMode.shiny != 1)?baseFighterMode.skinId : baseFighterMode.petID),onShowComplete,"pet");
          petNameTxt.text = baseFighterMode.petName;
          clearOldBtns();
          if(PetFightModel.mode == PetFightModel.PET_MELEE)
