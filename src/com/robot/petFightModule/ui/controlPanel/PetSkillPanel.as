@@ -33,8 +33,7 @@ package com.robot.petFightModule.ui.controlPanel
       private var petPrev:Sprite;
       private var _baseFighterMode:BaseFighterMode;
       protected var filte:GlowFilter = new GlowFilter(3355443,0.9,3,3,3.1);
-      protected var glow:GlowFilter = new GlowFilter(0xFFFFFF, 1, 10, 10, 10, 1, false, false);
-
+      
       public function PetSkillPanel()
       {
          super();
@@ -88,7 +87,9 @@ package com.robot.petFightModule.ui.controlPanel
                var matrix:ColorMatrixFilter = null;
                var argArray:Array = ShinyXMLInfo.getShinyArray(_baseFighterMode.petID);
                matrix = new ColorMatrixFilter(argArray)
-               _showMc.filters = [ matrix]
+               var glowArray:Array = ShinyXMLInfo.getGlowArray(_baseFighterMode.petID);
+               var glow:GlowFilter = new GlowFilter(uint(glowArray[0]),int(glowArray[1]),int(glowArray[2]),int(glowArray[3]),int(glowArray[4]));
+               _showMc.filters = [ filte,glow,matrix]
             }
             petPrev.addChild(_showMc);
          }

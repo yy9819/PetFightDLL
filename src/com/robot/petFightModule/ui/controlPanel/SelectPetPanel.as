@@ -243,6 +243,8 @@ package com.robot.petFightModule.ui.controlPanel
             if(_showMc)
             {
                _showMc.gotoAndStop("rightdown");
+               var sacle:Number = _showMc.height > 50 ? 0.5 : 1;
+               _showMc.scaleX = _showMc.scaleY = sacle;
                _showMc.addEventListener(Event.ENTER_FRAME,function():void
                {
                   var _loc2_:MovieClip = _showMc.getChildAt(0) as MovieClip;

@@ -38,7 +38,6 @@ package com.robot.petFightModule.view
 
       private var _baseFighterMode:BaseFighterMode;
       protected var filte:GlowFilter = new GlowFilter(3355443,0.9,3,3,3.1);
-      protected var glow:GlowFilter = new GlowFilter(0xFFFFFF, 1, 10, 10, 10, 1, false, false);
 
       public function BaseFighterPropView(param1:Sprite)
       {
@@ -100,7 +99,8 @@ package com.robot.petFightModule.view
          showName(baseFighterMode);
          resetBar(baseFighterMode);
          _baseFighterMode = baseFighterMode;
-         ResourceManager.getResource(ClientConfig.getPetSwfPath((baseFighterMode.skinId != 0 && baseFighterMode.shiny != 1) ? baseFighterMode.skinId : baseFighterMode.petID),onShowComplete,"pet");
+         ResourceManager.getResource(ClientConfig.getPetSwfPath(baseFighterMode.petID),onShowComplete,"pet");
+         // ResourceManager.getResource(ClientConfig.getPetSwfPath((baseFighterMode.skinId != 0 && baseFighterMode.shiny != 1) ? baseFighterMode.skinId : baseFighterMode.petID),onShowComplete,"pet");
       }
       
       private function onShowComplete(param1:DisplayObject) : void
@@ -120,14 +120,15 @@ package com.robot.petFightModule.view
                   _showMc.removeEventListener(Event.ENTER_FRAME,arguments.callee);
                }
             });
-            _showMc.scaleX = 1.5;
-            _showMc.scaleY = 1.5;
-            if(_baseFighterMode.shiny == 1){
-               var matrix:ColorMatrixFilter = null;
-               var argArray:Array = ShinyXMLInfo.getShinyArray(_baseFighterMode.petID);
-               matrix = new ColorMatrixFilter(argArray)
-               _showMc.filters = [ matrix]
-            }
+            var sacle:Number = _showMc.width > 60 ? 1 : 1.5;
+            _showMc.scaleX = sacle;
+            _showMc.scaleY = sacle;
+            // if(_baseFighterMode.shiny == 1){
+            //    var matrix:ColorMatrixFilter = null;
+            //    var argArray:Array = ShinyXMLInfo.getShinyArray(_baseFighterMode.petID);
+            //    matrix = new ColorMatrixFilter(argArray)
+            //    _showMc.filters = [ matrix]
+            // }
             DisplayUtil.stopAllMovieClip(_showMc);
             iconMC.addChild(_showMc);
          }

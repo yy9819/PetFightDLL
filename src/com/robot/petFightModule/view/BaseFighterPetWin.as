@@ -44,7 +44,6 @@ package com.robot.petFightModule.view
       protected var _petMC:MovieClip;
       
       protected var filte:GlowFilter = new GlowFilter(3355443,0.9,3,3,3.1);
-      protected var glow:GlowFilter = new GlowFilter(0xFFFFFF, 1, 10, 10, 10, 1, false, false);
       public function BaseFighterPetWin()
       {
          super();
@@ -67,6 +66,8 @@ package com.robot.petFightModule.view
          {
             var argArray:Array = ShinyXMLInfo.getShinyArray(petID);
             matrix = new ColorMatrixFilter(argArray)
+            var glowArray:Array = ShinyXMLInfo.getGlowArray(petID);
+            var glow:GlowFilter = new GlowFilter(uint(glowArray[0]),int(glowArray[1]),int(glowArray[2]),int(glowArray[3]),int(glowArray[4]));
             param1.filters = [filte , glow , matrix]
          }else{
             param1.filters = [filte];

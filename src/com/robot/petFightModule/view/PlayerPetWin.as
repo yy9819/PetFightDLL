@@ -7,6 +7,7 @@ package com.robot.petFightModule.view
    import flash.filters.ColorMatrixFilter;
    import com.robot.core.config.xml.ShinyXMLInfo;
    import com.robot.core.ui.alert.Alarm;
+   import flash.filters.GlowFilter;
 
    public class PlayerPetWin extends BaseFighterPetWin
    {
@@ -28,6 +29,8 @@ package com.robot.petFightModule.view
          {
             var argArray:Array = ShinyXMLInfo.getShinyArray(petID);
             matrix = new ColorMatrixFilter(argArray)
+            var glowArray:Array = ShinyXMLInfo.getGlowArray(petID);
+            var glow:GlowFilter = new GlowFilter(uint(glowArray[0]),int(glowArray[1]),int(glowArray[2]),int(glowArray[3]),int(glowArray[4]));
             param1.filters = [filte , glow , matrix]
          }else{
             param1.filters = [filte];
