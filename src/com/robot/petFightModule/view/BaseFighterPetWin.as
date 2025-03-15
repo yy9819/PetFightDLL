@@ -62,7 +62,7 @@ package com.robot.petFightModule.view
          param1.y = 145;
          param1.gotoAndStop(1);
          var matrix:ColorMatrixFilter = null;
-         if(shiny == 1)
+         if(shiny != 0)
          {
             var argArray:Array = ShinyXMLInfo.getShinyArray(petID);
             matrix = new ColorMatrixFilter(argArray)
@@ -188,10 +188,10 @@ package com.robot.petFightModule.view
          });
       }
       
-      public function update(param1:uint,shiny:uint) : void
+      public function update(petID:uint,shiny:uint,skinID:uint=0) : void
       {
-         this.petID = param1;
-         var _loc2_:MovieClip = PetAssetsManager.getInstance().getAssetsByID(param1);
+         this.petID = petID;
+         var _loc2_:MovieClip = PetAssetsManager.getInstance().getAssetsByID(skinID == 0 ? petID : skinID);
          setPetMC(_loc2_,shiny);
       }
       

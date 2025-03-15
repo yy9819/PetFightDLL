@@ -25,7 +25,7 @@ package com.robot.petFightModule.view
          param1.y = 145;
          param1.gotoAndStop(1);
          var matrix:ColorMatrixFilter = null;
-         if(shiny == 1)
+         if(shiny != 0)
          {
             var argArray:Array = ShinyXMLInfo.getShinyArray(petID);
             matrix = new ColorMatrixFilter(argArray)

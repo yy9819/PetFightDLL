@@ -83,7 +83,7 @@ package com.robot.petFightModule.ui.controlPanel
             });
             _showMc.scaleX = 1.5;
             _showMc.scaleY = 1.5;
-            if(_baseFighterMode.shiny == 1){
+            if(_baseFighterMode.shiny != 0){
                var matrix:ColorMatrixFilter = null;
                var argArray:Array = ShinyXMLInfo.getShinyArray(_baseFighterMode.petID);
                matrix = new ColorMatrixFilter(argArray)
@@ -131,7 +131,7 @@ package com.robot.petFightModule.ui.controlPanel
          DisplayUtil.removeAllChild(petPrev);
          var _loc2_:uint = baseFighterMode.catchTime;
          _baseFighterMode = baseFighterMode;
-         ResourceManager.getResource(ClientConfig.getPetSwfPath((baseFighterMode.skinId != 0 && baseFighterMode.shiny != 1)?baseFighterMode.skinId : baseFighterMode.petID),onShowComplete,"pet");
+         ResourceManager.getResource(ClientConfig.getPetSwfPath(baseFighterMode.skinId != 0?baseFighterMode.skinId : baseFighterMode.petID),onShowComplete,"pet");
          petNameTxt.text = baseFighterMode.petName;
          clearOldBtns();
          if(PetFightModel.mode == PetFightModel.PET_MELEE)

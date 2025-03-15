@@ -85,7 +85,7 @@ package com.robot.petFightModule.mode
          _propView.update(this);
          _petWin = new BaseFighterPetWin();
          _petWin.addEventListener(PetFightEvent.ON_OPENNING,onOpenning);
-         _petWin.update(((shiny != 1 && skinId != 0) ? skinId : petID),shiny);
+         _petWin.update(petID,shiny,skinId);
          if(MainManager.actorInfo.maxPuniLv == 2)
          {
             _petWin.petMC.filters = null;
@@ -138,7 +138,7 @@ package com.robot.petFightModule.mode
          hp = changePetInfo.hp;
          maxHP = changePetInfo.maxHp;
          _propView.update(this,true);
-         _petWin.update(((shiny != 1 && skinId != 0) ? skinId : petID),shiny);
+         _petWin.update(petID,shiny,skinId);
          if(this == FighterModeFactory.playerMode)
          {
             TimerManager.start();

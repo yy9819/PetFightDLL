@@ -48,7 +48,7 @@ package com.robot.petFightModule.mode
          _propView.update(this);
          _petWin = new PlayerPetWin();
          _petWin.addEventListener(PetFightEvent.ON_OPENNING,onOpenning);
-         _petWin.update(((shiny != 1 && skinId != 0) ? skinId : petID),shiny);
+         _petWin.update(petID,shiny,skinId);
       }
       
       public function get skillBtnViews() : Array
