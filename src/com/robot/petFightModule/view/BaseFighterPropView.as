@@ -123,7 +123,7 @@ package com.robot.petFightModule.view
             var sacle:Number = _showMc.width > 60 ? 1 : 1.5;
             _showMc.scaleX = sacle;
             _showMc.scaleY = sacle;
-            // if(_baseFighterMode.shiny == 1){
+            // if(_baseFighterMode.shiny != 0){
             //    var matrix:ColorMatrixFilter = null;
             //    var argArray:Array = ShinyXMLInfo.getShinyArray(_baseFighterMode.petID);
             //    matrix = new ColorMatrixFilter(argArray)
@@ -134,7 +134,7 @@ package com.robot.petFightModule.view
          }
       }
       
-      public function addEffect(param1:Class, param2:uint) : void
+      public function addEffect(param1:Class, param2:uint,count:uint) : void
       {
          var _loc3_:MovieClip = new param1() as MovieClip;
          var _loc4_:String = getQualifiedClassName(_loc3_);
@@ -144,7 +144,7 @@ package com.robot.petFightModule.view
             effectIconClsNames.push(_loc4_);
             effectIcons.push(_loc3_);
             _loc3_.buttonMode = true;
-            ToolTipManager.add(_loc3_,PetFightMsgManager.STATUS_ARRAY[param2]);
+            ToolTipManager.add(_loc3_,PetFightMsgManager.STATUS_ARRAY[param2] + ":" + count.toString() + "回合");
          }
       }
       
