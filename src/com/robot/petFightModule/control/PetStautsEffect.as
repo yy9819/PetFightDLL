@@ -15,7 +15,7 @@ package com.robot.petFightModule.control
          super();
       }
       
-      public static function addEffect(param1:uint, param2:uint) : void
+      public static function addEffect(param1:uint, param2:uint,count:uint) : void
       {
          var _loc3_:BaseFighterMode = null;
          var _loc4_:Class = null;
@@ -23,7 +23,7 @@ package com.robot.petFightModule.control
          {
             _loc3_ = PetFightEntry.fighterCon.getFighterMode(param1);
             _loc4_ = hashMap.getValue(param2) as Class;
-            _loc3_.propView.addEffect(_loc4_,param2);
+            _loc3_.propView.addEffect(_loc4_,param2,count);
          }
       }
       

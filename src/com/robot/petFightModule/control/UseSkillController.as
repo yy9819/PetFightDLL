@@ -147,6 +147,14 @@ package com.robot.petFightModule.control
                hpTxt.text = "-" + lostHp;
             }
             hpTxt.setTextFormat(tf);
+         }else 
+         {
+            if(value.atkTimes == 0)
+            {
+               defenceMC.parent.addChild(hpTxt);
+               hpTxt.text = "MISS";
+               hpTxt.setTextFormat(tf);
+            }
          }
          if(gainHp != 0)
          {

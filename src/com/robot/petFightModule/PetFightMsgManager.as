@@ -79,9 +79,9 @@ package com.robot.petFightModule
          {
             if(_loc10_ != 0)
             {
-               _loc6_ += STATUS_ARRAY[_loc8_] + " ";
+               _loc6_ += STATUS_ARRAY[_loc8_] + ":"+ _loc10_.toString() + "回合 ";
                _loc9_ = true;
-               PetStautsEffect.addEffect(param1.userID,_loc8_);
+               PetStautsEffect.addEffect(param1.userID,_loc8_,_loc10_);
             }
             _loc8_++;
          }
