@@ -1,14 +1,17 @@
 package
 {
    import flash.display.MovieClip;
+   import flash.display.SimpleButton;
    import flash.text.TextField;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol242")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol248")]
    public dynamic class ui_mainPanel extends MovieClip
    {
       public var speedMultiplierHideMC:MovieClip;
       
       public var speedMultiplierShowMC:MovieClip;
+      
+      public var emotionBtn:SimpleButton;
       
       public var petContainer:MovieClip;
       

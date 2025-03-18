@@ -36,6 +36,12 @@ package com.robot.petFightModule
    import flash.events.MouseEvent;
    import flash.display.SimpleButton;
    import org.taomee.ds.HashMap;
+   import flash.net.SharedObject;
+   import com.robot.core.manager.SOManager;
+   import org.taomee.manager.ToolTipManager;
+   import com.robot.app.emotion.EmotionController;
+   import com.robot.app.im.talk.TEmotionPanel;
+   import com.robot.app.emotion.EmotionListItem;
    
    public class PetFightEntry
    {
@@ -59,10 +65,21 @@ package com.robot.petFightModule
 
       public static var _petInfoMap:HashMap = new HashMap();
 
-      public var _speedMultiplierShowMC:MovieClip;
+      public static var _speedMultiplierShowMC:MovieClip;
 
-      public var _speedMultiplierHideMC:MovieClip;
-      
+      public static var _speedMultiplierHideMC:MovieClip;
+
+      public static var _speedMultiplier1:SimpleButton; 
+      public static var _speedMultiplier2:SimpleButton; 
+      public static var _speedMultiplier3:SimpleButton; 
+      public static var hideBtn:MovieClip 
+
+      public static var _emotionBtnMC:SimpleButton;
+      private static var _emotionPanel:FightEmotionPanel;
+      private static var _info:FightStartInfo;
+
+      public static var so:SharedObject = SOManager.getUserSO(SOManager.LOCAL_CONFIG); 
+
       public function PetFightEntry()
       {
          super();
@@ -77,27 +94,66 @@ package com.robot.petFightModule
             SocketConnection.send(CommandID.READY_TO_FIGHT);
          },4000);
       }
+      private static function onEmotion(e:MouseEvent):void
+      {
+         if(_emotionPanel == null)
+         {
+            _emotionPanel = new FightEmotionPanel(_info.otherInfo.userID,fighterCon.mainPanel);
+         }
+         if(DisplayUtil.hasParent(_emotionPanel))
+         {
+            _emotionPanel.hide();
+         }
+         else
+         {
+            _emotionPanel.show(_emotionBtnMC);
+         }
+      }
       
+
       private static function onStartFight(param1:PetFightEvent) : void
       {
          LevelManager.fightLevel.addChild(fighterCon.mainPanel);
+         SoundManager.stopSound();
+         if(SoundManager.isPlay_b)
+         {
+            soundChannel = sound.play(0,9999999);
+         }
+         DisplayUtil.removeForParent(loadingMC);
+         loadingMC = null;
+         var fightStartInfo:FightStartInfo = param1.dataObj as FightStartInfo;
+         isCanAuto = fightStartInfo.isCanAuto;
+         if(isCanAuto && Boolean(AutomaticFightManager.isStart))
+         {
+            AutomaticFightManager.showFightTips();
+         }
+         fighterCon.setup(fightStartInfo);
+         UserManager.clear();
          
-         TaomeeManager.stage.frameRate = 24 * TaomeeManager.fightSpeed;
          _speedMultiplierShowMC = fighterCon.mainPanel["speedMultiplierShowMC"] as MovieClip;
+         _speedMultiplierHideMC = fighterCon.mainPanel["speedMultiplierHideMC"] as MovieClip;
+         _emotionBtnMC = fighterCon.mainPanel["emotionBtn"] as SimpleButton;
+         if(fightStartInfo.otherInfo.userID != 0)
+         {
+            _info = fightStartInfo;
+            TaomeeManager.stage.frameRate = 30;
+            _speedMultiplierShowMC.visible = false;
+            _speedMultiplierHideMC.visible = false;
+            _emotionBtnMC.visible = true;
+            ToolTipManager.add(_emotionBtnMC,"表情");
+            _emotionBtnMC.addEventListener(MouseEvent.CLICK,onEmotion);
+            _emotionPanel = new FightEmotionPanel(_info.otherInfo.userID,fighterCon.mainPanel);
+            return
+         }
+         TaomeeManager.stage.frameRate = 24 * TaomeeManager.fightSpeed;
+         _emotionBtnMC.visible = false;
          _speedMultiplierShowMC.visible = true;
          _speedMultiplierShowMC.buttonMode = true;
          _speedMultiplierShowMC.mouseEnabled = true;
-         _speedMultiplierHideMC = fighterCon.mainPanel["speedMultiplierHideMC"] as MovieClip;
          _speedMultiplierHideMC.visible = false;
          _speedMultiplierHideMC.buttonMode = true;
          _speedMultiplierHideMC.mouseEnabled = true;
-         var hideBtn:MovieClip = _speedMultiplierHideMC["speedMultiplierMCHideBtn"] as MovieClip;
-         var _speedMultiplier1:SimpleButton = _speedMultiplierHideMC["speedMultiplier1"] as SimpleButton;
-         var _speedMultiplier2:SimpleButton = _speedMultiplierHideMC["speedMultiplier2"] as SimpleButton;
-         var _speedMultiplier3:SimpleButton = _speedMultiplierHideMC["speedMultiplier3"] as SimpleButton;
-         var frame1:MovieClip = _speedMultiplierHideMC["frame1"] as MovieClip;
-         var frame2:MovieClip = _speedMultiplierHideMC["frame2"] as MovieClip;
-         var frame3:MovieClip = _speedMultiplierHideMC["frame3"] as MovieClip;
+         hideBtn = _speedMultiplierHideMC["speedMultiplierMCHideBtn"] as MovieClip;
          for(var i:int = 1;i<=3;i++){
             _speedMultiplierHideMC["frame"+i.toString()].visible = TaomeeManager.fightSpeed == i;
          }
@@ -111,6 +167,9 @@ package com.robot.petFightModule
             _speedMultiplierShowMC.visible = true;
             _speedMultiplierHideMC.visible = false;
          })
+         _speedMultiplier1 = _speedMultiplierHideMC["speedMultiplier1"] as SimpleButton;
+         _speedMultiplier2 = _speedMultiplierHideMC["speedMultiplier2"] as SimpleButton;
+         _speedMultiplier3 = _speedMultiplierHideMC["speedMultiplier3"] as SimpleButton;
          _speedMultiplier1.addEventListener(MouseEvent.CLICK,function():void{
             speedMultiplier(1);
          })
@@ -120,27 +179,13 @@ package com.robot.petFightModule
          _speedMultiplier3.addEventListener(MouseEvent.CLICK,function():void{
             speedMultiplier(3);
          })
-
-         SoundManager.stopSound();
-         if(SoundManager.isPlay_b)
-         {
-            soundChannel = sound.play(0,9999999);
-         }
-         DisplayUtil.removeForParent(loadingMC);
-         loadingMC = null;
-         var _loc2_:FightStartInfo = param1.dataObj as FightStartInfo;
-         isCanAuto = _loc2_.isCanAuto;
-         if(isCanAuto && Boolean(AutomaticFightManager.isStart))
-         {
-            AutomaticFightManager.showFightTips();
-         }
-         fighterCon.setup(_loc2_);
-         UserManager.clear();
       }
       
       private static function speedMultiplier(speed:Number):void{
          TaomeeManager.fightSpeed = speed;
          if(TaomeeManager.fightSpeed > 3) TaomeeManager.fightSpeed = 1;
+         so.data["speed"] = TaomeeManager.fightSpeed;
+         SOManager.flush(so);
          for(var i:int = 1;i<=3;i++){
             _speedMultiplierHideMC["frame"+i.toString()].visible = TaomeeManager.fightSpeed == i;
          }
@@ -325,6 +370,23 @@ package com.robot.petFightModule
             loadingMC.parent.removeChild(loadingMC);
             loadingMC = null;
          }
+         if(_speedMultiplierShowMC.visible || _speedMultiplierHideMC.visible)
+         {
+            hideBtn.removeEventListener(MouseEvent.CLICK);
+            _speedMultiplierShowMC.removeEventListener(MouseEvent.CLICK);
+            _speedMultiplier1.removeEventListener(MouseEvent.CLICK)
+            _speedMultiplier2.removeEventListener(MouseEvent.CLICK)
+            _speedMultiplier3.removeEventListener(MouseEvent.CLICK)
+         }else
+         {
+            ToolTipManager.remove(_emotionBtnMC);
+            _emotionBtnMC.removeEventListener(MouseEvent.CLICK,onEmotion);
+            SocketConnection.removeCmdListener(CommandID.XIN_CHAT);
+            if(_emotionPanel)
+            {
+               _emotionPanel = null;
+            }
+         }
       }
       
       private static function onLoadAll(param1:Event) : void
@@ -430,5 +492,123 @@ package com.robot.petFightModule
          destroy();
       }
    }
+
 }
 
+import flash.display.Sprite;
+import com.robot.app.emotion.EmotionListItem;
+import flash.display.DisplayObject;
+import flash.events.MouseEvent;
+import com.robot.core.manager.MainManager;
+import org.taomee.utils.DisplayUtil;
+import org.taomee.component.manager.PopUpManager;
+import com.robot.core.manager.UIManager;
+import org.taomee.events.SocketEvent;
+import com.robot.core.info.ChatInfo;
+import com.robot.core.manager.UserManager;
+import com.robot.core.net.SocketConnection;
+import com.robot.core.CommandID;
+import flash.utils.ByteArray;
+import com.robot.core.ui.alert.Alarm;
+import flash.geom.Point;
+import com.robot.core.ui.DialogBox;
+import flash.display.MovieClip;
+
+class FightEmotionPanel extends Sprite
+{
+   private var _panel:Sprite;
+   
+   private var _userID:uint;
+
+   private var _mainPanel:Sprite
+
+   private static const MAX:int = 131;
+
+   protected var _dialogBox:DialogBox;
+
+   public function FightEmotionPanel(userID:uint,mainPanel:Sprite)
+   {
+      var item:EmotionListItem = null;
+      super();
+      this._userID = userID;
+      this._panel = UIManager.getSprite("Panel_Background_4");
+      this._panel.mouseChildren = false;
+      this._panel.mouseEnabled = false;
+      this._panel.cacheAsBitmap = true;
+      this._panel.width = 299;
+      this._panel.height = 118;
+      this._panel.alpha = 0.6;
+      addChild(this._panel);
+      for(var i:int = 0; i < 23; i++)
+      {
+         item = new EmotionListItem(i);
+         item.x = 6 + (item.width + 2) * int(i / 3);
+         item.y = 6 + (item.height + 2) * int(i % 3);
+         addChild(item);
+         item.addEventListener(MouseEvent.CLICK,this.onItemClick);
+      }
+      this._mainPanel = mainPanel;
+      SocketConnection.addCmdListener(CommandID.XIN_CHAT,this.onChat);
+   }
+   public function show(btn:DisplayObject) : void
+   {
+      PopUpManager.showForDisplayObject(this,btn,PopUpManager.TOP_RIGHT,true,new Point(-30,0));
+   }
+   
+   public function hide() : void
+   {
+      DisplayUtil.removeForParent(this);
+   }
+   
+   private function onItemClick(e:MouseEvent) : void
+   {
+      var item:EmotionListItem = e.currentTarget as EmotionListItem;
+      var byte:ByteArray = new ByteArray();
+      var msg:String = "$" + item.id.toString();
+      var sLen:int = msg.length;
+      var i:int = 0;
+      for(i = 0; i < sLen; i++)
+      {
+         if(byte.length > MAX)
+         {
+            break;
+         }
+         byte.writeUTFBytes(msg.charAt(i));
+      }
+      byte.writeUTFBytes("0");
+      SocketConnection.send(CommandID.XIN_CHAT,_userID,byte.length,byte);
+      this.hide();
+   }
+
+   private function onChat(event:SocketEvent) : void
+   {
+      try
+      {
+         var data:ChatInfo = event.data as ChatInfo;
+         if(Boolean(this._dialogBox))
+         {
+            this._dialogBox.destroy();
+            this._dialogBox = null;
+         }
+         this._dialogBox = new DialogBox();
+         this._dialogBox.name = "dialogBox";
+         if(data.senderID == MainManager.actorID)
+         {
+            this._dialogBox.show(data.msg,
+               50,
+               (this._mainPanel["MyInfoPanel"] as MovieClip).height/2,
+               this._mainPanel);
+         }else
+         {
+            this._dialogBox.show(data.msg,
+               (this._mainPanel["OtherInfoPanel"] as MovieClip).x + 250,
+               (this._mainPanel["OtherInfoPanel"] as MovieClip).height/2,
+               this._mainPanel);
+         }
+      }
+      catch (error:Error)
+      {
+         Alarm.show(error + "  " + data.msg)
+      }
+   }
+}

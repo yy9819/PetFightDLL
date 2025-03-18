@@ -2,7 +2,7 @@ package
 {
    import flash.display.MovieClip;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol739")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol745")]
    public dynamic class ui_ItemPanel extends MovieClip
    {
       public var scMc:MovieClip;
