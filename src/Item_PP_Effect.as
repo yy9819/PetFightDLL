@@ -2,7 +2,7 @@ package
 {
    import flash.display.MovieClip;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol38")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol56")]
    public dynamic class Item_PP_Effect extends MovieClip
    {
       public function Item_PP_Effect()

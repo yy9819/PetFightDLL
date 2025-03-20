@@ -2,7 +2,7 @@ package _fla
 {
    import flash.display.MovieClip;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol106")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol124")]
    public dynamic class tuytyktuyktuluol_11 extends MovieClip
    {
       public function tuytyktuyktuluol_11()
