@@ -104,6 +104,7 @@ package com.robot.petFightModule.mode
          if(_loc1_)
          {
             _loc2_ = PetFightEntry.fighterCon.getFighterMode(_loc1_.userID);
+            NpcChangePetData.npcPetChenged = false;
             _loc2_.changePet(_loc1_);
          }
          subject.openPanel();

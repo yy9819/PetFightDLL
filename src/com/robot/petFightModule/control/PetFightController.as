@@ -37,6 +37,8 @@ package com.robot.petFightModule.control
    import org.taomee.events.SocketEvent;
    import org.taomee.manager.EventManager;
    import org.taomee.utils.DisplayUtil;
+   import flash.utils.setInterval;
+   import flash.utils.clearInterval;
    
    public class PetFightController extends EventDispatcher
    {
@@ -73,7 +75,8 @@ package com.robot.petFightModule.control
       public var alarmSprite:Sprite;
       
       private var isFightOver:Boolean = false;
-      
+
+      private var npcIsdied:Boolean = false;
       public function PetFightController()
       {
          super();
@@ -272,20 +275,21 @@ package com.robot.petFightModule.control
       
       private function execute(param1:Boolean = false) : void
       {
-         var _loc2_:AttackValue = null;
-         var _loc3_:BaseFighterMode = null;
+         var attackValue:AttackValue = null;
+         var baseFighterMode:BaseFighterMode = null;
          if(!queue)
          {
             return;
          }
          if(queue.length > 0)
          {
-            _loc2_ = queue.shift() as AttackValue;
-            _loc3_ = getFighterMode(_loc2_.userID);
-            _loc3_.useSkill(_loc2_);
-            if(_loc2_.skillID != 0)
+            attackValue = queue.shift() as AttackValue;
+            npcIsdied = attackValue.remainHP == 0 && attackValue.userID == 0;
+            baseFighterMode = getFighterMode(attackValue.userID);
+            baseFighterMode.useSkill(attackValue);
+            if(attackValue.skillID != 0)
             {
-               petContainer.addChild(_loc3_.petWin);
+               petContainer.addChild(baseFighterMode.petWin);
                TimerManager.clearTxt();
                isPlaySkillMovie = true;
             }
@@ -296,7 +300,7 @@ package com.robot.petFightModule.control
             }
             else
             {
-               PetFightMsgManager.showText(_loc2_);
+               PetFightMsgManager.showText(attackValue);
                execute();
                trace("------------------------- use skill[skillid == 0 && !isOver]");
             }
@@ -305,7 +309,19 @@ package com.robot.petFightModule.control
          {
             RemainHpManager.showChange();
             TimerManager.start();
-            PlayerMode(FighterModeFactory.playerMode).nextRound();
+            if(npcIsdied)
+            {
+               var checkNPCChangedPet:uint = setInterval(function():void{
+                  if(NpcChangePetData.npcPetChenged){
+                     clearInterval(checkNPCChangedPet);
+                     NpcChangePetData.npcPetChenged = false;
+                     PlayerMode(FighterModeFactory.playerMode).nextRound();
+                  }
+               },100)
+            }else
+            {
+               PlayerMode(FighterModeFactory.playerMode).nextRound();
+            }
             isReciveUseSkillCmd = false;
          }
       }

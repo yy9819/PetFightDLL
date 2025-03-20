@@ -39,8 +39,6 @@ package com.robot.petFightModule
    import flash.net.SharedObject;
    import com.robot.core.manager.SOManager;
    import org.taomee.manager.ToolTipManager;
-   import com.robot.app.emotion.EmotionController;
-   import com.robot.app.im.talk.TEmotionPanel;
    import com.robot.app.emotion.EmotionListItem;
    
    public class PetFightEntry
@@ -369,23 +367,6 @@ package com.robot.petFightModule
          {
             loadingMC.parent.removeChild(loadingMC);
             loadingMC = null;
-         }
-         if(_speedMultiplierShowMC.visible || _speedMultiplierHideMC.visible)
-         {
-            hideBtn.removeEventListener(MouseEvent.CLICK);
-            _speedMultiplierShowMC.removeEventListener(MouseEvent.CLICK);
-            _speedMultiplier1.removeEventListener(MouseEvent.CLICK)
-            _speedMultiplier2.removeEventListener(MouseEvent.CLICK)
-            _speedMultiplier3.removeEventListener(MouseEvent.CLICK)
-         }else
-         {
-            ToolTipManager.remove(_emotionBtnMC);
-            _emotionBtnMC.removeEventListener(MouseEvent.CLICK,onEmotion);
-            SocketConnection.removeCmdListener(CommandID.XIN_CHAT);
-            if(_emotionPanel)
-            {
-               _emotionPanel = null;
-            }
          }
       }
       

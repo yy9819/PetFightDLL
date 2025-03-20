@@ -5,7 +5,8 @@ package com.robot.petFightModule.data
    public class NpcChangePetData
    {
       private static var array:Array = [];
-      
+      public static var npcPetChenged:Boolean = false;
+
       public function NpcChangePetData()
       {
          super();
@@ -14,6 +15,7 @@ package com.robot.petFightModule.data
       public static function add(param1:ChangePetInfo) : void
       {
          array.push(param1);
+         npcPetChenged = true;
       }
       
       public static function first() : ChangePetInfo
