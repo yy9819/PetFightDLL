@@ -25,6 +25,8 @@ package com.robot.petFightModule.view
       protected var iconMC:MovieClip;
       
       protected var effectIcons:Array = [];
+
+      protected var effectTraitIcons:Array = [];
       
       protected var _propWin:Sprite;
       
@@ -147,6 +149,21 @@ package com.robot.petFightModule.view
             ToolTipManager.add(_loc3_,PetFightMsgManager.STATUS_ARRAY[param2] + ":" + count.toString() + "回合");
          }
       }
+      public function addEffectTrait(effect_Trait:Class, index:uint,level:int) : void
+      {
+         var effectTraitMovieClip:MovieClip = new effect_Trait() as MovieClip;
+         effectTraitMovieClip.gotoAndStop(index+1)
+         effectTraitMovieClip.scaleX = effectTraitMovieClip.scaleY = 0.9;
+         var className:String = getQualifiedClassName(effectTraitMovieClip) + index;
+         if(effectIconClsNames.indexOf(className) == -1)
+         {
+            addTraitIcon(effectTraitMovieClip);
+            effectIconClsNames.push(className);
+            effectTraitIcons.push(effectTraitMovieClip);
+            effectTraitMovieClip.buttonMode = true;
+            ToolTipManager.add(effectTraitMovieClip,PetFightMsgManager.TRAIT_STATUS_ARRAY[index] + ":" + level.toString() + "级");
+         }
+      }
       
       protected function showName(param1:BaseFighterMode) : void
       {
@@ -177,13 +194,30 @@ package com.robot.petFightModule.view
             ToolTipManager.remove(_loc1_);
             DisplayUtil.removeForParent(_loc1_);
          }
+         for each(_loc1_ in effectTraitIcons)
+         {
+            ToolTipManager.remove(_loc1_);
+            DisplayUtil.removeForParent(_loc1_);
+         }
          effectIcons = [];
+         effectTraitIcons = [];
       }
       
       protected function addIcon(param1:MovieClip) : void
       {
          var _loc2_:Number = 200 - (param1.width + 4) * effectIcons.length;
          var _loc3_:Number = 62;
+         var _loc4_:Point = _propWin.parent.globalToLocal(_propWin.localToGlobal(new Point(_loc2_,_loc3_)));
+         param1.x = _loc4_.x;
+         param1.y = _loc4_.y;
+         _propWin.parent.addChild(param1);
+      }
+      protected function addTraitIcon(param1:MovieClip) : void
+      {
+         
+         var _loc2_:Number = _propWin.name == "OtherInfoPanel" ? (315 - (param1.width * 0.9 + 4) * effectTraitIcons.length) 
+            : (param1.width * 0.9 + 4) * effectTraitIcons.length - 10;
+         var _loc3_:Number = _propWin.name == "OtherInfoPanel" ? 95 : 90;
          var _loc4_:Point = _propWin.parent.globalToLocal(_propWin.localToGlobal(new Point(_loc2_,_loc3_)));
          param1.x = _loc4_.x;
          param1.y = _loc4_.y;

@@ -21,7 +21,10 @@ package com.robot.petFightModule
       private static var critEffect:MovieClip = new attack_crit_effect();
       
       public static var STATUS_ARRAY:Array = ["麻痹","中毒","烧伤","吸取对方的体力","被对方吸取体力","冻伤","害怕","疲惫","睡眠",""];
-      
+
+      public static var TRAIT_STATUS_ARRAY:Array = ["攻击","防御","特攻","特防","速度","命中"];
+
+
       public function PetFightMsgManager()
       {
          super();
@@ -84,6 +87,16 @@ package com.robot.petFightModule
                PetStautsEffect.addEffect(param1.userID,_loc8_,_loc10_);
             }
             _loc8_++;
+         }
+         var count:uint = 0;
+         var battleLvInt:int=0
+         for each(battleLvInt in param1.battleLv)
+         {
+            if(battleLvInt != 0)
+            {
+               PetStautsEffect.addEffectTrait(param1.userID,count,battleLvInt);
+            }
+            count++;
          }
          if(!_loc9_)
          {

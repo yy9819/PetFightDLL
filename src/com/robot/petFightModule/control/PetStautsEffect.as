@@ -26,6 +26,19 @@ package com.robot.petFightModule.control
             _loc3_.propView.addEffect(_loc4_,param2,count);
          }
       }
+
+      public static function addEffectTrait(userID:uint, index:uint,level:int) : void
+      {
+         var baseFighterMode:BaseFighterMode = null;
+         var effect_Trait:Class = null;
+         var effectTraitType:int = level > 0 ? 10 : 11;
+         if(hashMap.getValue(effectTraitType))
+         {
+            baseFighterMode = PetFightEntry.fighterCon.getFighterMode(userID);
+            effect_Trait = hashMap.getValue(effectTraitType) as Class;
+            baseFighterMode.propView.addEffectTrait(effect_Trait,index,level);
+         }
+      }
       
       private static function setup() : void
       {
@@ -39,6 +52,8 @@ package com.robot.petFightModule.control
          hashMap.add(7,Effect_Tired_Icon);
          hashMap.add(8,Effect_Sleep_Icon);
          hashMap.add(9,null);
+         hashMap.add(10,Effect_Trait_Up);
+         hashMap.add(11,Effect_Trait_Down);
       }
    }
 }

@@ -21,6 +21,7 @@ package com.robot.petFightModule.control
    import flash.utils.setTimeout;
    import gs.TweenLite;
    import org.taomee.utils.DisplayUtil;
+   import com.robot.core.manager.MainManager;
    
    public class UseSkillController extends EventDispatcher
    {
@@ -93,19 +94,19 @@ package com.robot.petFightModule.control
          hpTxt.filters = [new GlowFilter(16776960,1,6,6,5)];
          hpTxt.width = 150;
          hpTxt.height = 50;
-         hpTxt.x = 15;
+         hpTxt.x = this.playerMode.userID != MainManager.actorID ? 100 : 15;
          gainHpTxt = new TextField();
          gainHpTxt.autoSize = TextFieldAutoSize.CENTER;
          gainHpTxt.filters = [new GlowFilter(16776960,1,6,6,5)];
          gainHpTxt.width = 150;
          gainHpTxt.height = 50;
-         gainHpTxt.x = 15;
+         gainHpTxt.x = this.playerMode.userID != MainManager.actorID ? 100 : 15;
          changeHpTxt = new TextField();
          changeHpTxt.autoSize = TextFieldAutoSize.CENTER;
          changeHpTxt.filters = [new GlowFilter(16777215,1,6,6,5)];
          changeHpTxt.width = 150;
          changeHpTxt.height = 50;
-         changeHpTxt.x = 15;
+         changeHpTxt.x = this.playerMode.userID != MainManager.actorID ? 100 : 15;
       }
       
       private function defencePetPlay() : void
