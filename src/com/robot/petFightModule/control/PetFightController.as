@@ -39,6 +39,7 @@ package com.robot.petFightModule.control
    import org.taomee.utils.DisplayUtil;
    import flash.utils.setInterval;
    import flash.utils.clearInterval;
+   import com.robot.core.info.fightInfo.PetFightModel;
    
    public class PetFightController extends EventDispatcher
    {
@@ -186,6 +187,17 @@ package com.robot.petFightModule.control
          {
             _loc3_ = getFighterMode(_loc2_.userID);
             _loc3_.changePet(_loc2_);
+            if(_loc2_.userID == MainManager.actorID && PetFightModel.status == PetFightModel.FIGHT_WITH_NPC)
+            {
+               try
+               {
+                  getFighterMode(0).propView.setHpTxtVisable(_loc2_.petID);
+               }
+               catch (error:Error)
+               {
+                  
+               }
+            }
          }
       }
       
@@ -362,6 +374,18 @@ package com.robot.petFightModule.control
          }
          FighterModeFactory.playerMode.enemyMode = FighterModeFactory.enemyMode;
          FighterModeFactory.enemyMode.enemyMode = FighterModeFactory.playerMode;
+         if(PetFightModel.status == PetFightModel.FIGHT_WITH_NPC)
+         {
+            try
+            {
+               getFighterMode(0).propView.setHpTxtVisable(getFighterMode(MainManager.actorID).petID);
+            }
+            catch (error:Error)
+            {
+               
+            }
+         }
+         PetFightMsgManager.showStartText();
          addFightUI();
       }
       

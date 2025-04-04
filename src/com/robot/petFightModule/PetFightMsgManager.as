@@ -9,6 +9,7 @@ package com.robot.petFightModule
    import com.robot.petFightModule.mode.BaseFighterMode;
    import flash.display.MovieClip;
    import flash.text.TextField;
+   import com.robot.petFightModule.control.FighterModeFactory;
    
    public class PetFightMsgManager
    {
@@ -112,6 +113,17 @@ package com.robot.petFightModule
          txt = msgMC["msg_txt"];
          txt.text = "";
          scrollBar = new TextScrollBar(msgMC,txt);
+      }
+
+      public static function showStartText() : void
+      {
+         var startText:String = "我方<font color=\'#ffffff" + "\'>【" + FighterModeFactory.playerMode.petName + "】</font>登场了！\r";
+         startText +=  "对方<font color=\'#FF00FF" + "\'>【" + FighterModeFactory.enemyMode.petName + "】</font>登场了！\r";
+         if(FighterModeFactory.enemyMode.userID == 0 && FighterModeFactory.enemyMode.shiny != 0)
+         {
+            startText +=  "<font color=\'#FF00FF" + "\'>【" + FighterModeFactory.enemyMode.petName + "】</font><font color=\'#FF0000" + "\'>的样子好像有些奇怪！("+ FighterModeFactory.enemyMode.shiny +")</font>\r";
+         }
+         txt.htmlText += startText;
       }
    }
 }

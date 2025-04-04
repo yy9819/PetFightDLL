@@ -50,6 +50,10 @@ package com.robot.petFightModule.view
          lv_txt = param1["level_txt"];
          hp_txt = param1["hp_txt"];
          name_txt = param1["name_txt"];
+         if(_propWin.name == "OtherInfoPanel")
+         {
+            hp_txt.visible = false;
+         }
       }
       
       public function destroy() : void
@@ -222,6 +226,11 @@ package com.robot.petFightModule.view
          param1.x = _loc4_.x;
          param1.y = _loc4_.y;
          _propWin.parent.addChild(param1);
+      }
+
+      public function setHpTxtVisable(petID:int):void
+      {
+         this.hp_txt.visible = [10,11,12,164,165,166].indexOf(petID) > -1;
       }
    }
 }
