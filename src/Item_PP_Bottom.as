@@ -2,12 +2,12 @@ package
 {
    import flash.display.MovieClip;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol61")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol789")]
    public dynamic class Item_PP_Bottom extends MovieClip
    {
       public function Item_PP_Bottom()
       {
-         addFrameScript(59,frame60);
+         addFrameScript(59,this.frame60);
          super();
       }
       

@@ -3,7 +3,7 @@ package
    import flash.display.MovieClip;
    import flash.text.TextField;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol706")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol464")]
    public dynamic class ui_skillMC extends MovieClip
    {
       public var pp_txt:TextField;
@@ -16,7 +16,7 @@ package
       
       public function ui_skillMC()
       {
-         addFrameScript(0,frame1);
+         addFrameScript(0,this.frame1);
          super();
       }
       

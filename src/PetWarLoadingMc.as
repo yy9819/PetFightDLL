@@ -2,7 +2,7 @@ package
 {
    import flash.display.MovieClip;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol142")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol683")]
    public dynamic class PetWarLoadingMc extends MovieClip
    {
       public var mc1:MovieClip;

@@ -2,12 +2,12 @@ package
 {
    import flash.display.MovieClip;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol782")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol814")]
    public dynamic class SpecialOpenningMovie extends MovieClip
    {
       public function SpecialOpenningMovie()
       {
-         addFrameScript(51,frame52);
+         addFrameScript(51,this.frame52);
          super();
       }
       

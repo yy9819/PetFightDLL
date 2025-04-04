@@ -2,12 +2,12 @@ package otherAsset_fla
 {
    import flash.display.MovieClip;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol288")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol543")]
    public dynamic class Timeline_23 extends MovieClip
    {
       public function Timeline_23()
       {
-         addFrameScript(23,frame24);
+         addFrameScript(23,this.frame24);
          super();
       }
       

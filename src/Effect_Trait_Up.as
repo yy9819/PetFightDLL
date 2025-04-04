@@ -2,13 +2,13 @@ package
 {
    import flash.display.MovieClip;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol11")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol626")]
    public dynamic class Effect_Trait_Up extends MovieClip
    {
       public function Effect_Trait_Up()
       {
+         addFrameScript(0,this.frame1);
          super();
-         addFrameScript(0,frame1);
       }
       
       internal function frame1() : *
