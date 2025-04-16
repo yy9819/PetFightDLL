@@ -10,6 +10,7 @@ package com.robot.petFightModule.ui.controlPanel.petItem.category
    import flash.text.TextFormat;
    import flash.text.TextFormatAlign;
    import org.taomee.utils.DisplayUtil;
+   import com.robot.core.manager.ItemManager;
    
    public class RenewBloodItemCategory extends AbstractPetItemCategory implements IPetItemCategory
    {
@@ -56,6 +57,7 @@ package com.robot.petFightModule.ui.controlPanel.petItem.category
          super.useItem(param1);
          SocketConnection.send(CommandID.USE_PET_ITEM,FighterModeFactory.playerMode.catchTime,_itemID,0);
          --_itemNum;
+         --ItemManager.getCollectionInfo(_itemID).itemNum;
          refreshInfo();
       }
    }

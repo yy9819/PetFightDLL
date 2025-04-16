@@ -4,7 +4,7 @@ package
    import flash.display.SimpleButton;
    import flash.text.TextField;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol784")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol785")]
    public dynamic class ui_mainPanel extends MovieClip
    {
       public var speedMultiplierHideMC:MovieClip;

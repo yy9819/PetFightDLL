@@ -106,7 +106,7 @@ package com.robot.petFightModule.control
          changeHpTxt.filters = [new GlowFilter(16777215,1,6,6,5)];
          changeHpTxt.width = 150;
          changeHpTxt.height = 50;
-         changeHpTxt.x = this.playerMode.userID != MainManager.actorID ? 100 : 15;
+         changeHpTxt.x = this.playerMode.userID != MainManager.actorID ? 15 : 100;
       }
       
       private function defencePetPlay() : void

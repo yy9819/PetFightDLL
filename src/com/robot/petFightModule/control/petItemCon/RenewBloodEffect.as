@@ -12,6 +12,7 @@ package com.robot.petFightModule.control.petItemCon
    import flash.utils.Timer;
    import gs.TweenLite;
    import org.taomee.utils.DisplayUtil;
+   import com.robot.core.manager.MainManager;
    
    public class RenewBloodEffect
    {
@@ -42,7 +43,7 @@ package com.robot.petFightModule.control.petItemCon
          txt.filters = [new GlowFilter(16777215,1,6,6,5)];
          txt.width = 150;
          txt.height = 50;
-         txt.x = 15;
+         txt.x = param1.userID != MainManager.actorID ? 15 : 100;
          if(changeHp < 0)
          {
             txt.text = "-" + Math.abs(changeHp);

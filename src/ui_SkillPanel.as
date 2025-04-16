@@ -3,7 +3,7 @@ package
    import flash.display.MovieClip;
    import flash.text.TextField;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol802")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol803")]
    public dynamic class ui_SkillPanel extends MovieClip
    {
       public var nameTxt:TextField;

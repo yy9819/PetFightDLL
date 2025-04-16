@@ -6,6 +6,7 @@ package com.robot.petFightModule.ui.controlPanel.petItem.category
    import com.robot.petFightModule.mode.BaseFighterMode;
    import flash.events.MouseEvent;
    import org.taomee.effect.ColorFilter;
+   import com.robot.core.manager.ItemManager;
    
    public class CatchPetItemCategory extends AbstractPetItemCategory implements IPetItemCategory
    {
@@ -26,6 +27,7 @@ package com.robot.petFightModule.ui.controlPanel.petItem.category
          super.useItem(param1);
          SocketConnection.send(CommandID.CATCH_MONSTER,_itemID);
          --_itemNum;
+         --ItemManager.getCollectionInfo(_itemID).itemNum;
          refreshInfo();
       }
    }

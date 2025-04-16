@@ -2,7 +2,7 @@ package
 {
    import flash.display.MovieClip;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol617")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol618")]
    public dynamic class CatchMovie_mc extends MovieClip
    {
       public function CatchMovie_mc()

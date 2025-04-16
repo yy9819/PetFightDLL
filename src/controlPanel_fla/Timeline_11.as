@@ -2,7 +2,7 @@ package controlPanel_fla
 {
    import flash.display.MovieClip;
    
-   [Embed(source="/_assets/assets.swf", symbol="symbol463")]
+   [Embed(source="/_assets/assets.swf", symbol="symbol464")]
    public dynamic class Timeline_11 extends MovieClip
    {
       public var flying_light:Icon_PetType_31;
